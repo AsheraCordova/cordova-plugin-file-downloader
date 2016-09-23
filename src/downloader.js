@@ -76,6 +76,8 @@ var Downloader = {
   retry: 3,
   /** @type {Array.<string>}  */
   zipfiletypes: ['zip'],
+  /** @type {function} */
+  downErrorFunc: null,
 
   /**
    * prepare Downloader
@@ -537,6 +539,7 @@ var Downloader = {
       Downloader.transferFile(Downloader.fileObjectInProgress);
       Downloader.retry--;
     } else {
+	  if (Downloader.downErrorFunc) { Downloader.downErrorFunc(event); }
       Downloader.reset();
       //console.log("onDownloadError remove listener");
       document.removeEventListener("DOWNLOADER_onDownloadError", Downloader.onDownloadError, false);
@@ -683,7 +686,11 @@ var Downloader = {
       },
       setRemoveAfterUnzip: function(del) {
         Downloader.setRemoveAfterUnzip(del);
-      }
+      },
+	  setDownloadError: function(aFunction)
+      {
+		Downloader.downErrorFunc = aFunction;
+	  }
   }
 };
 
