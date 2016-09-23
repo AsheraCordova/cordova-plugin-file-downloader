@@ -74,6 +74,8 @@ var Downloader = {
   transfer: null,
   /** @type {int} */
   retry: 3,
+  /** @type {Array.<string>}  */
+  zipfiletypes: ['zip'],
 
   /**
    * prepare Downloader
@@ -99,6 +101,16 @@ var Downloader = {
     }
     if (typeof options.fileSystem != 'undefined') {
       Downloader.fileSystemURL = options.fileSystem;
+    }
+	
+	if (typeof options.zipTypes != 'undefined') {	  
+	  for (var i=0; i<options.zipTypes.length; i++)
+	  {
+		if (Downloader.zipfiletypes.indexOf(options.zipTypes[i]) < 0)
+		{
+			Downloader.zipfiletypes.push(options.zipTypes[i]);  				
+		}		
+	  }	 
     }
 
     //console.log("setting Listener");
@@ -356,12 +368,16 @@ var Downloader = {
    * @param {String} fileName
    * @returns {boolean}
    */
-  isZipFile: function(fileName) {
-    if (fileName.match(/\.zip$/)) {
-      //console.log("ZIPFILE " + fileName);
-      return true;
-    }
-    //console.log("NO ZIPFILE " + fileName);
+  isZipFile: function(fileName) {	
+	var ext = fileName.substr(fileName.lastIndexOf('.') + 1);	
+	for (var i=0; i<Downloader.zipfiletypes.length; i++)
+	{	
+		if (ext == Downloader.zipfiletypes[i]) {				  
+		  return true;
+		}
+	}
+    
+    //console.log("Not a supported zipfile: " + fileName);
     return false;
   },
 

@@ -1,6 +1,10 @@
 # phonegap-downloader
 Phonegap plugin to download a List of files or a single file to the Phone, check consistency and unzip if necessary (Android and ios)
 
+## Fork Changes
+
+This fork adds a new option to allow the unzipping of files with a file extension other than 'zip'.
+
 ## Changes 0.2.0 -> 0.2.1
  - Added downloader.abort() function to abort downloads in progress.
 
@@ -40,6 +44,13 @@ options:
 - **delete**: *true* -> delete after unpack a zipfile [default: *true*]
 - **noMedia**: *true* -> prevent gallery from scan files on android [default: *true*]
 - **wifiOnly**: *true* -> only Download when connected to Wifi, else fires ``DOWNLOADER_noWifiConnection`` event [default: *false*]
+- **zipTypes**: An array of strings for specifying additional file extensions that may be unzipped. [default: *zip*]
+
+The example below will initilize the downloader for unzipping both .zip and .dat files
+
+```javascript
+downloader.init({folder: "yourPersistantAppFolder", unzip: true, zipType:['dat'});
+```
 
 ###Download single file
 
