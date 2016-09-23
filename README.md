@@ -49,7 +49,7 @@ options:
 The example below will initilize the downloader for unzipping both .zip and .dat files
 
 ```javascript
-downloader.init({folder: "yourPersistantAppFolder", unzip: true, zipType:['dat'});
+downloader.init({folder: "yourPersistantAppFolder", unzip: true, zipType:['dat'] });
 ```
 
 ###Download single file
