@@ -78,6 +78,7 @@ var Downloader = {
   zipfiletypes: ['zip'],
   /** @type {function} */
   downErrorFunc: null,
+  currentPerc:-1,
 
   /**
    * prepare Downloader
@@ -123,6 +124,7 @@ var Downloader = {
     document.addEventListener("DOWNLOADER_unzipSuccess", Downloader.onUnzipSuccess, false);
     document.addEventListener("DOWNLOADER_fileCheckSuccess", Downloader.onCheckSuccess, false);
     //console.log("getting filesystem");
+	Downloader.currentPerc=-1;
     Downloader.getFilesystem();
   },
 
@@ -217,8 +219,12 @@ var Downloader = {
     Downloader.transfer = new FileTransfer();
     Downloader.transfer.onprogress = function(progressEvent) {
       if (progressEvent.lengthComputable) {
-        var percentage = Math.floor(progressEvent.loaded / progressEvent.total * 100);
-        document.dispatchEvent(createEvent("DOWNLOADER_downloadProgress", [percentage, fileObject.name]));
+		var tempPerc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+		if (tempPerc > Downloader.currentPerc)
+		{
+			Downloader.currentPerc = tempPerc;
+			document.dispatchEvent(createEvent("DOWNLOADER_downloadProgress", [Downloader.currentPerc, fileObject.name]));	
+		}        
       }
     };
     Downloader.transfer.download(fileObject.url, filePath, function(entry) {
@@ -455,6 +461,7 @@ var Downloader = {
     Downloader.loading = false;
     Downloader.unzipping = false;
     Downloader.retry = 3;
+	Downloader.currentPerc=-1;
   },
 
   /*************************************************************** getter */
