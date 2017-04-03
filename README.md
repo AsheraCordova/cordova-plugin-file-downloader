@@ -17,6 +17,8 @@ Also adds an optional function to call on download error.
 downloader.setDownloadError(aFunc);
 ```
 
+The "DOWNLOADER_downloadProgress" event has been modified so it is only dispatched if the percentage downloaded has increased. This improves performance as the calling app is not flooded with progress events. 
+
 ## Changes 0.2.0 -> 0.2.1
  - Added downloader.abort() function to abort downloads in progress.
 
