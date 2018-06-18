@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-fastrde-downloader" version="0.2.1">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-fastrde-downloader" version="0.2.2">
 	<name>Downloader</name>
 	<author>Fabian Strachanski</author>
 	<description>Downloads files to persistant Storage on your Phone, checks md5sum if you want, unzips packed files if necassary (For Android and iOS)</description>
@@ -7,7 +7,7 @@
 	<keywords>file,download,checksum,md5,unzip</keywords>
 	<repo>https://github.com/fastrde/cordova-plugin-fastrde-downloader.git</repo>
 	<issue>https://github.com/fastrde/cordova-plugin-fastrde-downloader/issues</issue>
-	<dependency id="cordova-plugin-file" version="1.0.1" />
+	<dependency id="cordova-plugin-file" />
 	<dependency id="cordova-plugin-file-transfer" version="0.4.8" />
 	<dependency id="cordova-plugin-network-information" version="0.2.14" />
 	<dependency id="cordova-plugin-zip" version="2.1.0" />
