@@ -1,10 +1,46 @@
 # file-downloader
 Cordova plugin to download a List of files or a single file to the Phone, check consistency and unzip if necessary (Android and ios)
 
+## Fork Changes
+
+This fork adds a new option to allow the unzipping of files with a file extension other than 'zip'.
+
+The example below will initilize the downloader for unzipping both .zip and .dat files
+
+```javascript
+downloader.init({folder: "yourPersistantAppFolder", unzip: true, zipTypes: ['dat'] });
+```
+
+Also adds an optional function to call on download error.
+
+```javascript
+downloader.setDownloadError(aFunc);
+```
+
+The "DOWNLOADER_downloadProgress" event has been modified so it is only dispatched if the percentage downloaded has increased. This improves performance as the calling app is not flooded with progress events.
+
+The file dependencies have been updated to work with more recent plugin versions.
+## Changes 0.2.0 -> 0.2.1
+ - Added downloader.abort() function to abort downloads in progress.
+
+## Changes 0.1.5 -> 0.2.0
+ - move to new cordova plugin registry
+
+## Changes 0.1.4 -> 0.1.5
+ - Fix for issue #2 new initialization after download-error works properly now.
+
+## Changes 0.1.3 -> 0.1.4
+- fixed an issue with older javascript versions and reserved words.
+
+## Changes 0.1.2 -> 0.1.3
+- Unzipping is now queue based like the download porgress.
+
+## Changes 0.1.1 -> 0.1.2
+- noMedia flag in init options to prevent gallery from scanning download folder
 
 ## install
 ```
-cordova plugin add cordova-plugin-file-downloader
+yourAppDir$ cordova plugin add https://github.com/StudioKloek/cordova-plugin-file-downloader.git
 ```
 
 ## usage
@@ -23,6 +59,8 @@ options:
 - **delete**: *true* -> delete after unpack a zipfile [default: *true*]
 - **noMedia**: *true* -> prevent gallery from scan files on android [default: *true*]
 - **wifiOnly**: *true* -> only Download when connected to Wifi, else fires ``DOWNLOADER_noWifiConnection`` event [default: *false*]
+- **zipTypes**: An array of strings for specifying additional file extensions that may be unzipped. [default: *zip*]
+
 
 ### Download single file
 

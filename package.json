@@ -1,7 +1,7 @@
 {
   "name": "cordova-plugin-file-downloader",
   "version": "0.4.0",
-  "description": "Downloads files to persistant Storage on your Phone, checks md5sum if you want, unzips packed files if necessary (For Android and iOS)",
+  "description": "Downloads files to persistant Storage on your device, checks md5sum if you want, unzips packed files if necessary (For Android and iOS)",
   "cordova": {
     "id": "cordova-plugin-file-downloader",
     "platforms": [
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mramonlopez/cordova-plugin-file-downloader.git"
+    "url": "https://github.com/StudioKloek/cordova-plugin-file-downloader.git"
   },
   "keywords": [
     "cordova",
@@ -25,6 +25,6 @@
 		"md5",
     "unzip"
   ],
-  "author": "Fabian Strachanski, Manuel Ramon Lopez Torres",
+  "author": "Fabian Strachanski, Manuel Ramon Lopez Torres, Martijn Swart",
   "license": "MIT"
 }
