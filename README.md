@@ -1,5 +1,5 @@
-# phonegap-downloader
-Phonegap plugin to download a List of files or a single file to the Phone, check consistency and unzip if necessary (Android and ios)
+# file-downloader
+Cordova plugin to download a List of files or a single file to the Phone, check consistency and unzip if necessary (Android and ios)
 
 ## Fork Changes
 
@@ -27,7 +27,7 @@ The file dependencies have been updated to work with more recent plugin versions
  - move to new cordova plugin registry
 
 ## Changes 0.1.4 -> 0.1.5
- - Fix for issue #2 new initialization after download-error works properly now. 
+ - Fix for issue #2 new initialization after download-error works properly now.
 
 ## Changes 0.1.3 -> 0.1.4
 - fixed an issue with older javascript versions and reserved words.
@@ -40,7 +40,7 @@ The file dependencies have been updated to work with more recent plugin versions
 
 ## install
 ```
-yourAppDir$ phonegap plugin add https://github.com/fastrde/phonegap-downloader.git
+yourAppDir$ cordova plugin add https://github.com/mramonlopez/cordova-plugin-file-downloader.git
 ```
 
 ## usage
@@ -104,7 +104,7 @@ DOWNLOADER_unzipError         data:[string fileName]
 DOWNLOADER_unzipProgress      data:[number percentage, string fileName]
 DOWNLOADER_fileRemoved        data:[cordova.fileEntry entry]
 DOWNLOADER_fileRemoveError    data:[cordova.fileEntry entry]
-DOWNLOADER_getFileError       data:[object error]	
+DOWNLOADER_getFileError       data:[object error]
 DOWNLOADER_fileCheckSuccess   data:[string md5sum, string fileName]
 DOWNLOADER_fileCheckFailed    data:[string calculatedMd5sum, string md5, string fileName])
 DOWNLOADER_fileCheckError     data:[object error]
