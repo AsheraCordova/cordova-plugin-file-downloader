@@ -28,7 +28,7 @@
 function createEvent(name, data) {
   data = data || [];
   var event = document.createEvent("Event");
-  event.initEvent(name);
+  event.initEvent(name, false, false);
   event.name = name;
   event.data = data;
   var log = name;
@@ -86,6 +86,7 @@ var Downloader = {
    */
   initialize: function (options) {
     //console.log("initialize");
+    Downloader.initialized = false;
     Downloader.setFolder(options.folder);
     if (typeof options.unzip != 'undefined') {
       Downloader.setAutoUnzip(options.unzip);
@@ -209,12 +210,21 @@ var Downloader = {
     return false;
   },
 
+  getLocalFolder: function() {
+  	if (Downloader.localFolder.nativeURL) {
+  		return Downloader.localFolder.nativeURL;
+  	}
+  	if (Downloader.localFolder.toNativeURL) {
+  		return Downloader.localFolder.toNativeURL();
+  	}
+  	return Downloader.localFolder.toURL();
+  },
   /**
    * @param {FileObject} fileObject
    */
   transferFile: function (fileObject) {
     //console.log("tranfserFile");
-    var filePath = Downloader.localFolder.toURL() + "/" + fileObject.name;
+    var filePath = this.getLocalFolder() + fileObject.name;
     Downloader.transfer = new FileTransfer();
     Downloader.transfer.onprogress = function (progressEvent) {
       if (progressEvent.lengthComputable) {
@@ -240,8 +250,8 @@ var Downloader = {
    */
   //TODO: full fileEntry as param? not only fileName
   _unzip: function (fileName) {
-    var folderUrl = Downloader.localFolder.toURL();
-    zip.unzip(folderUrl + "/" + fileName, folderUrl, function (code) {
+    var folderUrl = this.getLocalFolder();
+    zip.unzip(folderUrl + fileName, folderUrl, function (code) {
       if (code == 0) {
         document.dispatchEvent(createEvent("DOWNLOADER_unzipSuccess", [fileName]));
       } else {
@@ -491,16 +501,26 @@ var Downloader = {
    * @param {String} folderName
    */
   getFolder: function (fileSystem, folderName) {
-    fileSystem.getDirectory(folderName, {
-      create: true,
-      exclusive: false
-    }, function (folder) {
-      //console.log("getFolder->Success:" + folder.fullPath + " : " + folder.name);
-      document.dispatchEvent(createEvent("DOWNLOADER_gotFolder", [folder]));
-    }, function (error) {
-      //console.log("getFolder->Error");
-      document.dispatchEvent(createEvent("DOWNLOADER_error", [error]));
-    });
+	  const folders = folderName.split('/');
+	  const nextFolder = folders.shift();
+	  function createDir(rootFolder, folderName, folders) {
+	    rootFolder.getDirectory(folderName, {
+	      create: true,
+	      exclusive: false
+	    }, function (folder) {
+	      //console.log("getFolder->Success:" + folder.fullPath + " : " + folder.name);
+	      if (folders.length === 0) {
+	      	document.dispatchEvent(createEvent("DOWNLOADER_gotFolder", [folder]));
+	      } else {
+	      	const nextFolder = folders.shift();	      
+	      	createDir(folder, nextFolder, folders);
+	      }	      
+	    }, function (error) {
+	      //console.log("getFolder->Error");
+	      document.dispatchEvent(createEvent("DOWNLOADER_error", [error]));
+	    });
+	  }
+  	  createDir(fileSystem, nextFolder, folders);
   },
   touchNoMedia: function () {
     var folder = Downloader.localFolder;
