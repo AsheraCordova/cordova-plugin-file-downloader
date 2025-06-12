@@ -209,15 +209,21 @@ var Downloader = {
     }
     return false;
   },
-
   getLocalFolder: function() {
+  	var url;
   	if (Downloader.localFolder.nativeURL) {
-  		return Downloader.localFolder.nativeURL;
+  		url = Downloader.localFolder.nativeURL;
+  	} else if (Downloader.localFolder.toNativeURL) {
+  		url = Downloader.localFolder.toNativeURL();
+  	} else {
+  		url = Downloader.localFolder.toURL();
   	}
-  	if (Downloader.localFolder.toNativeURL) {
-  		return Downloader.localFolder.toNativeURL();
+  	
+  	if (url && !url.endsWith("/")) {
+  		url += "/";
   	}
-  	return Downloader.localFolder.toURL();
+  	return url;
+  	
   },
   /**
    * @param {FileObject} fileObject
