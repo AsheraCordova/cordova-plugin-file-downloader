@@ -11,7 +11,7 @@
 	<issue>https://github.com/StudioKloek/cordova-plugin-file-downloader/issues</issue>
 	<dependency id="cordova-plugin-file" url="https://github.com/AsheraCordova/cordova-plugin-file.git" />
 	<dependency id="cordova-plugin-file-transfer" url="https://github.com/AsheraCordova/cordova-plugin-file-transfer.git" />
-	<dependency id="cordova-plugin-network-information" url="https://github.com/AsheraCordova/cordova-plugin-file-transfer.git" />
+	<dependency id="cordova-plugin-network-information" url="https://github.com/AsheraCordova/cordova-plugin-network-information.git" />
 	<dependency id="cordova-plugin-zip" url="https://github.com/AsheraCordova/cordova-plugin-zip.git" />
 	<dependency id="cordova-plugin-file-md5" version="~0.3.3" />
 
